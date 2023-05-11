@@ -1,1 +1,2 @@
-# -SimpliLearn-Capstone-Project-ComplaintRedressalSystem
+# SimpliLearn-Capstone-Project-ComplaintRedressalSystem
+ABC Telecom Ltd. is one of India’s major telecommunication service providers offering landline, mobile phone and Fiber optic broadband services across the country. Their customer services group is interested in providing a set of customer redressal services through the development of a new application using the state-of-art technologies such as Spring-boot for the development of java-based services, and UI using Angular and integrate them suitably, so that all the necessary services are taken care of through this application. The online complaint management system is where the customers can raise complaints regarding their landlines and broadband services.
