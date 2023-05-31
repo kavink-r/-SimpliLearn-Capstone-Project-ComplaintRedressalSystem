@@ -1,0 +1,12 @@
+<nav class="navbar navbar-light bg-light justify-content-between">
+    <a class="navbar-brand" routerLink="">ABC Telecom Ltd.</a>
+    
+    <form class="form-inline">
+        <span>
+           Welcome {{currentUser.username}}!!
+          </span>
+          
+<button class="btn btn-warning my-2 my-sm-0" *ngIf="!currentUser.authentication" routerLink="login">Login</button>
+    <button class="btn btn-warning my-2 my-sm-0" *ngIf="currentUser.authentication" (click)="logout()">Log out</button>
+    </form>
+</nav>

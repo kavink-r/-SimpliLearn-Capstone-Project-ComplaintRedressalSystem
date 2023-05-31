@@ -1,5 +1,7 @@
 package com.simplilearn.crs.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,20 +14,26 @@ public class usersService {
 	@Autowired
 	private usersRepo repo;
 	
-	public String addUser(Users usr) {
+	public int addUser(Users usr) {
 		repo.save(usr);
-		return "1";
+		return 1;
 	}
 	
-	public String deleteUser(Users usr) {
+	public int deleteUser(Users usr) {
 		repo.delete(usr);
-		return "1";
+		return 1;
 	}
 	
-	public String changeStatus(String username, boolean status) {
+	public int changeStatus(String username, boolean status) {
 		Users usr = repo.findByUsername(username);
 		usr.setAccountStatus(status);
-		return "1";
+		return 1;
 		
+	}
+	public Users findUser(String username) {
+		return repo.findByUsername(username);
+	}
+	public List<Users> findAllUsers(){
+		return repo.findAll();
 	}
 }

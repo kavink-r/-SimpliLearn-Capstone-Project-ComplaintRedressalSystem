@@ -1,0 +1,22 @@
+<app-navbar></app-navbar>
+
+     <div class="container">
+      <h1 class="mt-4 text-center"><b>COMPLAINT REDRESSAL SYSTEM</b></h1>
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+      <form class="" #userform="ngForm">
+        
+        <h2 >Log in</h2>
+        <p>
+          <label for="username" class="">Username</label>
+          <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus [(ngModel)]="loginreq.username">
+        </p>
+        <p>
+          <label for="password" class="">Password</label>
+          <input type="password" id="password" name="password" class="form-control" placeholder="Password" required [(ngModel)]="loginreq.password">
+        </p>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="userform.invalid" (click)="signin()">Sign in</button>
+      </form>
+    </div>
+    </div>
+</div>

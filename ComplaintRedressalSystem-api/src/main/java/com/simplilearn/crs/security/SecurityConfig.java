@@ -2,6 +2,8 @@ package com.simplilearn.crs.security;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -24,6 +26,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
@@ -34,24 +39,33 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig  {
 
 	@Bean
 	public SecurityFilterChain filterchain(HttpSecurity http) throws Exception {
 		http
 		.csrf((csrf)->csrf.disable())
-        .authorizeHttpRequests((authorizeHttpRequests) ->
-                authorizeHttpRequests
-                     .requestMatchers("/api/home/","/api/home/add").permitAll()
-                     .requestMatchers("/api/home/admin").hasAuthority("ADMIN")
-                     .requestMatchers("/api/home/user").hasAnyAuthority("ADMIN","USER")
-        )
+		.cors(cors -> {
+		    cors.configurationSource(request -> {
+		      CorsConfiguration corsConfiguration = new CorsConfiguration();
+		      corsConfiguration.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
+		      corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+		      corsConfiguration.setAllowedHeaders(Collections.singletonList("*"));
+		      corsConfiguration.setAllowCredentials(true);
+		      return corsConfiguration;
+		    });
+		  })
+		 .authorizeHttpRequests((authorize) -> authorize
+			        .anyRequest().authenticated()
+			    )
         .authenticationProvider(authProvider())
         .sessionManagement((sessmgmt)->
         		sessmgmt
         			.sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
         			.maximumSessions(1)
         		)
+        
         .logout((logout) ->
 			logout.deleteCookies("JSESSIONID")
 				.invalidateHttpSession(true)
@@ -62,8 +76,7 @@ public class SecurityConfig  {
         	.usernameParameter("username")
         	.passwordParameter("password")
         	.successHandler(successHandler())
-        	.failureHandler(failureHandler());
-        	
+        	.failureHandler(failureHandler());        	
         });
         return http.build();
 	}
@@ -71,18 +84,18 @@ public class SecurityConfig  {
 	    return new AuthenticationSuccessHandler() {
 	        
 
-			@Override
-			public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-					Authentication authentication) throws IOException, ServletException {
-				
-				Cookie authCookie = new Cookie("authentication","success");
-				userSecurityObj usr = (userSecurityObj) authentication.getPrincipal();
-				authCookie.setAttribute("username",usr.getUsername());
-				authCookie.setAttribute("Roles", authentication.getAuthorities().toString());
-				response.getWriter().append("OK");
-				response.setStatus(200);
-				response.addCookie(authCookie);
-			}
+	    	@Override
+	    	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+	    			Authentication authentication) throws IOException, ServletException {
+	    		userSecurityObj usr = (userSecurityObj) authentication.getPrincipal();  		
+	    		// Serialize the roles as a string
+	    		String roles = authentication.getAuthorities().toString();
+ 	    		response.getWriter().append("{\"authentication\":\""+usr.getUsername()+ "\","
+ 	    				+"\"roles\":\""+roles+"\""
+ 	    				+ "}");
+	    		response.setStatus(HttpServletResponse.SC_OK);
+	    		
+	    	}
 	    };
 	}
 
@@ -99,6 +112,7 @@ public class SecurityConfig  {
 			};  
 	       
 	}
+	
 	@Bean
 	public UserDetailsService userDetailsService() {
 		return new CustomUserDetailsService();
