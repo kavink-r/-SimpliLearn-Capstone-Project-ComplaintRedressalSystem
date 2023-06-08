@@ -3,6 +3,7 @@ package com.simplilearn.crs.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.simplilearn.crs.entities.Manager;
@@ -15,15 +16,19 @@ public class managerService {
 	@Autowired
 	managerRepo repo;
 	
+	@Autowired
+	PasswordEncoder encoder;
 	public List<Manager>getAllManagers() {
 		return repo.findAll();
 	}
 	
 	public int addManager(Manager mgr) {
 		try {
+			mgr.setPassword(encoder.encode(mgr.getPassword()));;
 			repo.save(mgr);
 			return 1;
 		}catch(Exception e) {
+			System.out.println(e);
 			return 0;
 		}
 	}
@@ -44,6 +49,14 @@ public class managerService {
 		return 1;
 		}catch(Exception e) {
 			return 0;
+		}
+	}
+	public Manager getManagerForPin(pin pin) {
+		try {
+			return repo.findByPin(pin);
+		}catch(Exception e) {
+			System.out.println(e);
+			return null;
 		}
 	}
 }

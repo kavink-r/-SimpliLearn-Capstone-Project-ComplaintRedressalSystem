@@ -9,8 +9,6 @@ import jakarta.persistence.OneToOne;
 @Entity
 public class Customer extends Users {
 	
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long customerId;
 	private String address;
 	@OneToOne
 	private pin pin;

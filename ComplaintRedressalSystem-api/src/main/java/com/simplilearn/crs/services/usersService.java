@@ -19,7 +19,8 @@ public class usersService {
 		return 1;
 	}
 	
-	public int deleteUser(Users usr) {
+	public int deleteUser(long usrid) {
+		Users usr = repo.findById(usrid).get();
 		repo.delete(usr);
 		return 1;
 	}

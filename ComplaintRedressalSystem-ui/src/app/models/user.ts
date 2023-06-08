@@ -1,4 +1,4 @@
-export class user{
+export class user {
     userid:number;
     firstName:string;
     lastName:string;
@@ -7,5 +7,4 @@ export class user{
     email:string;
     roles:string;
     accountStatus:boolean;
-
 }

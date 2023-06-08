@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.simplilearn.crs.entities.Complaint;
+import com.simplilearn.crs.entities.Manager;
 import com.simplilearn.crs.entities.Ticket;
 import com.simplilearn.crs.services.complaintService;
+import com.simplilearn.crs.services.managerService;
 import com.simplilearn.crs.services.ticketService;
 
 @RestController
@@ -29,6 +31,9 @@ public class ComplaintController {
 	
 	@Autowired
 	ticketService ticketservice;
+	
+	@Autowired
+	managerService managerservice;
 	
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/hi")
@@ -44,7 +49,9 @@ public class ComplaintController {
 		try{
 		Complaint createdcomplaint = complaintservice.createComplaint(cmp);
 		Ticket tempticket =new Ticket();
+		Manager tempmgr = managerservice.getManagerForPin(cmp.getPin());
 		tempticket.setStatus("RAISED");
+		tempticket.setManager(tempmgr);
 		Ticket createdticket = ticketservice.createTicket(tempticket);
 		complaintservice.addTicketToComplaint(createdcomplaint,createdticket);
 		ticketservice.setComplaint(createdticket, createdcomplaint);
@@ -74,7 +81,9 @@ public class ComplaintController {
 		Map<String,Long> res = new HashMap<>();
 		try {
 			Ticket tempticket = new Ticket();
+			Manager tempmgr = managerservice.getManagerForPin(cmp.getPin());
 			tempticket.setStatus("RAISED");
+			tempticket.setManager(tempmgr);
 			Ticket createdticket = ticketservice.createTicket(tempticket);
 			complaintservice.addTicketToComplaint(cmp, createdticket);
 			ticketservice.setComplaint(createdticket, cmp);

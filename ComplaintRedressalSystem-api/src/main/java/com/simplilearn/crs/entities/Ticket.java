@@ -27,9 +27,9 @@ public class Ticket {
 	@JsonIgnore
 	@ManyToOne
 	private Complaint complaint;
-	@OneToOne
+	@ManyToOne
 	private Manager manager;
-	@OneToOne
+	@ManyToOne
 	private Engineer engineer;
 	private String comment;
 	@Column(updatable = false)

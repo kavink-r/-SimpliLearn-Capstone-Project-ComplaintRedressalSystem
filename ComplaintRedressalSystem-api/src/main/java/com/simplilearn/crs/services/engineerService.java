@@ -55,4 +55,13 @@ public class engineerService {
 			return 0;
 		}
 	}
+	
+	public List<Engineer> getEngineerForPin(pin pin){
+		try {
+			return repo.findByLocations(pin);
+		}catch(Exception e) {
+			System.out.println(2);
+			return null;
+		}
+	}
 }

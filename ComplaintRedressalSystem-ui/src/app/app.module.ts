@@ -10,6 +10,12 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { CookieService } from 'ngx-cookie-service';
 import { LandingComponent } from './landing/landing.component';
+import { CustomerComponent } from './customer/customer.component';
+import { ManagerComponent } from './manager/manager.component';
+import { EngineerComponent } from './engineer/engineer.component';
+import { AdminpanelComponent } from './adminpanel/adminpanel.component';
+import { ManagerallticketsComponent } from './manageralltickets/manageralltickets.component';
+import { ManageropenticketsComponent } from './manageropentickets/manageropentickets.component';
 
 
 @NgModule({
@@ -17,7 +23,13 @@ import { LandingComponent } from './landing/landing.component';
     AppComponent,
     LoginComponent,
     NavbarComponent,
-    LandingComponent
+    LandingComponent,
+    CustomerComponent,
+    ManagerComponent,
+    EngineerComponent,
+    AdminpanelComponent,
+    ManagerallticketsComponent,
+    ManageropenticketsComponent
   ],
   imports: [
     BrowserModule,

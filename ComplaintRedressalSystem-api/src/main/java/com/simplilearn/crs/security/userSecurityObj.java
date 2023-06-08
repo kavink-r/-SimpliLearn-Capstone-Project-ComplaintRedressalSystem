@@ -53,5 +53,6 @@ public class userSecurityObj implements UserDetails{
 	public boolean isEnabled() {
 		return usr.isAccountStatus();
 	}
+	
 
 }

@@ -16,7 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.simplilearn.crs.entities.Complaint;
+import com.simplilearn.crs.entities.Engineer;
 import com.simplilearn.crs.entities.Ticket;
+import com.simplilearn.crs.entities.pin;
+import com.simplilearn.crs.services.engineerService;
 import com.simplilearn.crs.services.ticketService;
 
 @RestController
@@ -24,6 +27,8 @@ import com.simplilearn.crs.services.ticketService;
 public class TicketController {
 @Autowired
 ticketService tktservice;
+@Autowired
+engineerService engineerservice;
 
 @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER')")
 @GetMapping("/all")
@@ -78,4 +83,22 @@ public ResponseEntity<List<Ticket>> getEngineerOpenTickets(@RequestParam(name="e
 	List<Ticket> engrTickets = tktservice.getEngOpenTickets(engineerId);
 	return new ResponseEntity<List<Ticket>>(engrTickets,HttpStatus.OK);
 }
+ @GetMapping("/manageropentickets")
+ @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER')")
+ public ResponseEntity<List<Ticket>> getManagerOpenTickets(@RequestParam(name="managerid") Long managerId){
+		List<Ticket> mgrTickets = tktservice.getManagerOpenTickets(managerId);
+		return new ResponseEntity<List<Ticket>>(mgrTickets,HttpStatus.OK);
+	}
+ @GetMapping("/manageralltickets")
+ @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER')")
+ public ResponseEntity<List<Ticket>> getManagerTickets(@RequestParam(name="managerid") Long managerId){
+		List<Ticket> mgrTickets = tktservice.getManagerTickets(managerId);
+		return new ResponseEntity<List<Ticket>>(mgrTickets,HttpStatus.OK);
+	}
+ @GetMapping("/engineerforpin")
+ @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER')")
+ public ResponseEntity<List<Engineer>> getEngineerForpin(@RequestParam(name="pin") Long Pin){
+		List<Engineer> location_engineers = engineerservice.getEngineerForPin(new pin(Pin));
+		return new ResponseEntity<List<Engineer>>(location_engineers,HttpStatus.OK);
+ }
 }

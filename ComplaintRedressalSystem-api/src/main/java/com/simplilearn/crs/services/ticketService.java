@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.simplilearn.crs.entities.Complaint;
 import com.simplilearn.crs.entities.Engineer;
+import com.simplilearn.crs.entities.Manager;
 import com.simplilearn.crs.entities.Ticket;
 import com.simplilearn.crs.repository.engineerRepo;
+import com.simplilearn.crs.repository.managerRepo;
 import com.simplilearn.crs.repository.ticketRepo;
 
 @Service
@@ -18,6 +20,9 @@ ticketRepo repo;
 
 @Autowired
 engineerRepo erepo;
+
+@Autowired
+managerRepo mrepo;
 
 public List<Ticket> getAllTickets(){
 	return repo.findAll();
@@ -69,6 +74,7 @@ public Long assignEngineer(Ticket tkt) {
 		repo.save(tk);
 		return 1L;
 	}catch(Exception e) {
+		System.out.println(e);
 		return 0L;
 	}
 }
@@ -79,5 +85,13 @@ public List<Ticket> getEngTickets(Long engineerId){
 public List<Ticket> getEngOpenTickets(Long engineerId){
 	Engineer engineer = erepo.findById(engineerId).get();
 	return repo.findByEngineerOpen(engineer);
+}
+public List<Ticket> getManagerTickets(Long managerId){
+	Manager manager = mrepo.findById(managerId).get();
+	return repo.findByManager(manager);
+}
+public List<Ticket> getManagerOpenTickets(Long managerId){
+	Manager manager = mrepo.findById(managerId).get();
+	return repo.findByManagerOpen(manager);
 }
 }
