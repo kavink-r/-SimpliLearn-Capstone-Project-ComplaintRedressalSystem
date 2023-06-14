@@ -29,4 +29,12 @@ private Long contactNo;
 public void addPin(pin pin) {
 	this.locations.add(pin);
 }
+
+
+@Override
+public String toString() {
+	return "Engineer [locations=" + locations + ", contactNo=" + contactNo  + super.toString()
+			+ ", getClass()=" + getClass() + "]";
+}
+
 }

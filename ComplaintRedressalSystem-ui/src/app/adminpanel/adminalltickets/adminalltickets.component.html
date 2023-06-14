@@ -1,0 +1,28 @@
+<table class="table table-striped table-outlined">
+    <thead class="table-dark">
+        <tr>
+            <th class="text-center">TicketID</th>
+            <th class="text-center">Status</th>
+            <th class="text-center">Date of creation</th>
+            <th class="text-center" >Last Updated</th>
+            <th class="text-center">Area Manager</th>
+            <th class="text-center">Complaint Details</th>
+            <th class="text-center">Assigned Engineer</th>
+        </tr>
+    </thead>
+    <tbody>
+       
+        <tr *ngFor="let ticket of tickets">
+           
+            <td class="text-center">{{ticket.ticketId}}</td>
+            <td [ngStyle]="{'background-color': (ticket.status=='CLOSED')? '#00db3a':(ticket.status=='RAISED')? '#00b3ff':(ticket.status=='ASSIGNED')?'#f5c105':'#d9d1e3' }" class="text-center" style="color: white;"> {{ticket.status}} </td>
+            <td class="text-center">{{ticket.createdAt | date :"dd-MMM-yyyy,hh:mm:ss"}}</td>
+            <td class="text-center">{{ticket.updatedAt | date :"dd-MMM-yyyy,hh:mm:ss"}}</td>
+            <td class="text-center"><button *ngIf="ticket.manager==null" class='btn btn-warning' (click)='assignmanager(ticket)'>Assign Manager</button>{{(ticket.manager!==null)? ticket.manager.firstName:'' + "  " }}{{ (ticket.manager!==null)? ticket.manager.lastName : '' }}</td>
+            <td class="text-center"><button class="btn btn-warning btn-sm" (click)="complaintdetails(ticket)"><i class="bi bi-eye-fill"></i></button></td>
+            <td class="text-center"><button *ngIf="ticket.engineer==null" class='btn btn-warning' (click)='assignengineer(ticket)'>Assign Engineer</button>{{(ticket.engineer!==null)?ticket.engineer.firstName:"" + "  " }}{{ (ticket.engineer!==null)? ticket.engineer.lastName :" " }}</td>
+       
+        </tr>
+    
+    </tbody>
+</table>

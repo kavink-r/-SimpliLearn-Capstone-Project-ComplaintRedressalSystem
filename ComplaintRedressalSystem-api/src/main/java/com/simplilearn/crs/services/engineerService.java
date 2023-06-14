@@ -28,10 +28,12 @@ public class engineerService {
 	
 	public int addEngineer(Engineer eng) {
 		try {
+			System.out.println(eng);
 			eng.setPassword(encoder.encode(eng.getPassword()));
 			repo.save(eng);
 			return 1;
 		}catch(Exception e) {
+			System.out.println(e);
 			return 0;
 		}
 	}

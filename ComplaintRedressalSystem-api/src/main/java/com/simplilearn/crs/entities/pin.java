@@ -19,5 +19,8 @@ public class pin implements Serializable{
 	public pin() {
 		// TODO Auto-generated constructor stub
 	}
+	public pin(Long pin) {
+		this.pin=pin;
+	}
 
 }

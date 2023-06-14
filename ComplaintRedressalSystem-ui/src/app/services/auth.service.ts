@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { request } from '../models/loginRequestDto';
 import { Observable } from 'rxjs';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { user } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -53,5 +54,8 @@ export class AuthService {
   }
   isLoggedIn():boolean{
     return this.currentUser.authentication;
+  }
+  getCurrentUser():Observable<user>{
+    return this.http.get<user>("http://localhost:8080/api/ticket/"+'getcurrentuser',{withCredentials:true});
   }
 }

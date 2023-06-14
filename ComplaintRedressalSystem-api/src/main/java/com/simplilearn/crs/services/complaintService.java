@@ -48,11 +48,14 @@ public class complaintService {
 	}
 	public Long addFeedback(Long cId, String feedback) {
 		try {
+			System.out.println("complaintid-->"+cId);
+			System.out.println("Feedback--------->"+feedback);
 		Complaint cmp =repo.findById(cId).get();
 		cmp.setFeedback(feedback);
 		repo.save(cmp);
 		return 1L;
 		}catch(Exception e) {
+			System.out.println(e);
 			return 0L;
 		}
 	}

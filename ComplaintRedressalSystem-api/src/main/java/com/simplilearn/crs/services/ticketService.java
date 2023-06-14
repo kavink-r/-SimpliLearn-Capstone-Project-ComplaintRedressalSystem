@@ -71,6 +71,7 @@ public Long assignEngineer(Ticket tkt) {
 		Ticket tk = repo.findById(tkt.getTicketId()).get();
 		Engineer eng = erepo.findById(tkt.getEngineer().getUserid()).get();
 		tk.setEngineer(eng);
+		tk.setStatus("ASSIGNED");
 		repo.save(tk);
 		return 1L;
 	}catch(Exception e) {
@@ -94,4 +95,17 @@ public List<Ticket> getManagerOpenTickets(Long managerId){
 	Manager manager = mrepo.findById(managerId).get();
 	return repo.findByManagerOpen(manager);
 }
+public Long assignManager(Ticket tkt) {
+	try {
+		Manager m = mrepo.findById(tkt.getManager().getUserid()).get();
+		Ticket t = repo.findById(tkt.getTicketId()).get();
+		t.setManager(m);
+		repo.save(t);
+		return 1L;
+	} catch (Exception e) {
+		e.printStackTrace();
+		return 0L;
+	}
+}
+
 }

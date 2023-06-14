@@ -1,0 +1,38 @@
+<div class="card px-3 py-3 mx-3 my-3">
+    <div class="row">
+    <div class="col">
+        <h1 style="float: left;display: inline;">Ticket Details</h1>
+    </div>
+    <div class="col">
+        <button class="btn btn-warning" style="float: right;" (click)="closedialog()">X</button>
+    </div>    
+    </div>
+<table class="table table-bordered">
+    <tbody>
+        <tr>
+            <th>Ticket ID</th>
+            <td>{{ticket.ticketId}}</td>
+        </tr>
+        <tr>
+            <th>Status</th>
+            <td> <button disabled class="btn" [ngStyle]="{'background-color':(ticket.status=='RAISED')?'#F29727':(ticket.status=='CLOSED')?'#22A699':'#B3C890'}" style="border: none;color: black;">{{ticket.status}}</button></td>
+        </tr>
+        <tr>
+            <th>Area Manager</th>
+            <td>{{ticket.manager==null?'Not Present':ticket.manager.firstName}} {{' '}}{{ ticket.manager==null?'':ticket.manager.lastName}}</td>
+        </tr>
+        <tr>
+            <th>Assigned Engineer</th>
+            <td>{{ticket.engineer==null?'Not Assigned':ticket.engineer.firstName }}{{' '}}{{ ticket.engineer==null?'':ticket.engineer.lastName}}</td>
+        </tr>
+        <tr>
+            <th>Ticket Created at</th>
+            <td>{{ticket.createdAt | date:"dd-MMM-yy hh:mm"}}</td>
+        </tr>
+        <tr>
+            <th>Ticket last updated at</th>
+            <td>{{ticket.updatedAt | date: "dd-MMM-yy hh:mm"}}</td>
+        </tr>
+    </tbody>
+</table>
+</div>

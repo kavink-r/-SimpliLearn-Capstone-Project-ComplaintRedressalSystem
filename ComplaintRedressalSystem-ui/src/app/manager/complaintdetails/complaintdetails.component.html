@@ -1,0 +1,47 @@
+<div class="card px-3 py-3 mx-3 my-3">
+    <div class="row">
+        <div class="col"><h1 style="float: left;display: inline;">Complaint Details</h1></div>
+        <div class="col"><button class="btn btn-warning" style="float: right;" (click)="closedialog()">X</button></div>
+    </div>
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <th>Complaint Reference Number</th>
+                <th>ABCCR000{{complaint.complaintId}}</th>
+            </tr>
+            <tr>
+                <th>Customer Name</th>
+                <td>{{complaint.name}}</td>
+            </tr>
+            <tr>
+                <th>Customer Address</th>
+                <td>{{complaint.address}}</td>
+            </tr>
+            <tr>
+                <th>Pincode</th>
+                <td>{{complaint.pin.pin}}</td>
+            </tr>
+            <tr>
+                <th>Customer Contact Number</th>
+                <td>{{complaint.contactNo}}</td>
+            </tr>
+            <br>
+            <tr>
+                <th>Complaint Subject</th>
+                <td>{{complaint.subject}}</td>
+            </tr>
+            <tr>
+                <th>Complaint Details</th>
+                <td>{{complaint.details}}</td>
+            </tr>
+            <tr>
+                <th>Complaint Feedback</th>
+                <td>{{complaint.feedback==null?'Not Given':complaint.feedback}}</td>
+            </tr>
+            <tr>
+                <th>Complaint raised date</th>
+                <td>{{complaint.createdAt | date:"dd-MMM-yy hh:mm"}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

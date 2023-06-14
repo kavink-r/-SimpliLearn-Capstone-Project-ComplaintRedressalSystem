@@ -1,0 +1,117 @@
+<h1 style="display: inline;" mat-dialog-title>Add user</h1>
+<div mat-dialog-actions style="display:inline;margin-left: 80%;">
+    <button class="btn btn-danger mx-4 my-4" style="float:right;" (click)="closeDialog()">X</button>
+</div>
+<div mat-dialog-content>
+    <label id="example-radio-group-label">Select the User category:</label>
+    <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group " [(ngModel)]="usertype">
+        <mat-radio-button class="example-radio-button" *ngFor="let type of usertypes" [value]="type"
+            style="display:inline;">
+            {{type}}
+        </mat-radio-button>
+    </mat-radio-group>
+
+    <div class="card my-4">
+        <form class="form-group py-4 px-4" #form="ngForm">
+            <div class="row">
+                <div class="col">
+                    <label for="firstname">Enter First Name:</label>
+                    <input type="text" id="firstname" name="firstname" class="form-control" [(ngModel)]="usr.firstName"
+                        required>
+                </div>
+                <div class="col">
+                    <label for="lastname">Enter Last Name:</label>
+                    <input type="text" id="lastname" name="lastname" class="form-control" [(ngModel)]="usr.lastName"
+                        required>
+                </div>
+                <div class="col">
+                    <label for="username">Enter Username:</label>
+                    <input type="text" id="username" name="username" class="form-control" [(ngModel)]="usr.username"
+                        required>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="password">Choose Password:</label>
+                        <input type="password" id="password" name="password" class="form-control" [(ngModel)]="pass"
+                            required
+                            [ngStyle]="{'border-color':form.touched?(pass==repass&&repass!=='')?'green':'red':''}">
+                    </div>
+                    <div class="col">
+                        <label for="repassword">Re-enter Password:</label>
+                        <input type="password" id="repassword" name="repassword" class="form-control"
+                            [(ngModel)]="repass" required
+                            [ngStyle]="{'border-color':form.touched?(pass==repass&&repass!=='')?'green':'red':''}">
+                    </div>
+                    <div class="col">
+                        <label for="email">Enter e-mail:</label>
+                        <input type="email" id="e-mail" name="email" class="form-control" required
+                            [(ngModel)]="usr.email">
+                    </div>
+                </div>
+                <div *ngIf="usertype=='CUSTOMER'">
+                    <div class="row">
+                        <div class="col">
+                            <label for="address">Enter customer address:</label>
+                            <input type="text" id="address" name="address" class="form-control" required
+                                [(ngModel)]="cus.address">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="pin">Select customer Pin:</label>
+                            <select class="form-control" name="pin" id="pin" required [(ngModel)]="cus.pin">
+                                <option>Select Pin</option>
+                                <option *ngFor="let pin of pins" value="{{pin.pin}}">{{pin.pin}}</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label for="contact">Enter customer contact No:  </label>
+                            <input type="number" id="contact" name="contact" class="form-control" [(ngModel)]="cus.contactNo" required>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="usertype=='MANAGER'">
+
+                    <div class="row">
+                        <div class="col">
+                            <label for="pin">Select Manager service area Pin:</label>
+                            <select class="form-control" name="pin" id="pin" required [(ngModel)]="mngr.pin">
+                                <option>Select Pin</option>
+                                <option *ngFor="let pin of pins" value="{{pin.pin}}">{{pin.pin}}</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label for="contact">Enter Manager contact No:</label>
+                            <input type="number" id="contact" name="contact" class="form-control" [(ngModel)]="mngr.contactNo" required>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="usertype=='ENGINEER'">
+
+                    <div class="row">
+                        <div class="col">
+                            <label for="pin">Add Engineer service area Pin:</label>
+                            <select class="form-control" name="pin" id="pin" [(ngModel)]="temppin" required>
+                                <option>Select Pin</option>
+                                <option *ngFor="let pin of pins" value="{{pin.pin}}">{{pin.pin}}</option>
+                            </select><button class="btn btn-sm btn-primary" *ngIf="temppin"
+                                (click)="addpintoengineer(temppin)">Add</button>
+                            <br>
+                            <ol>
+                                Engineer Service Locations:
+                                <li *ngFor="let pin of engr.locations">{{pin.pin}}</li>
+                            </ol>
+                        </div>
+                        <div class="col">
+                            <label for="contact">Enter Engineer contact No:</label>
+                            <input type="number" id="contact" name="contact" class="form-control" [(ngModel)]="engr.contactNo" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <br><br><br>
+        <button class="btn btn-primary mx-4 my-4" style="width:10%;" [disabled]="!form.valid" (click)="adduser(usertype)">Add {{usertype}}</button>
+
+    </div>
+</div>

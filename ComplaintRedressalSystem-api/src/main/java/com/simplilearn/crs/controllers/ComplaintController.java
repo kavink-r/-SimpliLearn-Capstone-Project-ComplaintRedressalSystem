@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.simplilearn.crs.entities.Complaint;
 import com.simplilearn.crs.entities.Manager;
 import com.simplilearn.crs.entities.Ticket;
+import com.simplilearn.crs.entities.pin;
 import com.simplilearn.crs.services.complaintService;
 import com.simplilearn.crs.services.managerService;
+import com.simplilearn.crs.services.pinService;
 import com.simplilearn.crs.services.ticketService;
 
 @RestController
@@ -34,6 +36,9 @@ public class ComplaintController {
 	
 	@Autowired
 	managerService managerservice;
+	
+	@Autowired 
+	pinService pinservice;
 	
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/hi")
@@ -56,8 +61,8 @@ public class ComplaintController {
 		complaintservice.addTicketToComplaint(createdcomplaint,createdticket);
 		ticketservice.setComplaint(createdticket, createdcomplaint);
 		res.put("status",1L);
-		res.put("ComplaintId", createdcomplaint.getComplaintId());
-		res.put("ticketID",createdticket.getTicketId());
+		res.put("complaintId", createdcomplaint.getComplaintId());
+		res.put("ticketId",createdticket.getTicketId());
 		return new ResponseEntity<Map<String,Long>>(res,HttpStatus.OK);
 		}catch(Exception e) {
 			res.put("status",0L);
@@ -88,8 +93,8 @@ public class ComplaintController {
 			complaintservice.addTicketToComplaint(cmp, createdticket);
 			ticketservice.setComplaint(createdticket, cmp);
 			res.put("status", 1L);
-			res.put("ComplaintID", cmp.getComplaintId());
-			res.put("TicketId", createdticket.getTicketId());
+			res.put("complaintId", cmp.getComplaintId());
+			res.put("ticketId", createdticket.getTicketId());
 			return new ResponseEntity<Map<String,Long>>(res,HttpStatus.OK);
 		}catch(Exception e) {
 			res.put("status",0L);
@@ -103,5 +108,24 @@ public class ComplaintController {
 		Long status = complaintservice.addFeedback(cmp.getComplaintId(), cmp.getFeedback());
 		res.put("status", status);
 		return new ResponseEntity<Map<String,Long>>(res,HttpStatus.OK);
+	}
+	@GetMapping("/allpin")
+	@PreAuthorize("hasAnyAuthority('ADMIN','ENGINEER','MANAGER','CUSTOMER')")
+	public List<pin> getAllPins(){
+		return pinservice.getAllPin();
+	}
+	@PostMapping("/addpin")
+	@PreAuthorize("hasAuthority('ADMIN')")
+	public  ResponseEntity<Map<String,Integer>> addpin(@RequestBody pin p){
+		Map<String,Integer> res = new HashMap<>();
+		int status = pinservice.addPin(p);
+		res.put("status", status);
+		return new ResponseEntity<Map<String,Integer>>(res,HttpStatus.OK);
+	}
+	@GetMapping("/managerforpin")
+	@PreAuthorize("hasAuthority('ADMIN')")
+	public ResponseEntity<Manager> getManagerForpin(@RequestParam(name="pin") long pin){
+		Manager m = managerservice.getManagerForPin(new pin(pin));
+		return new ResponseEntity<Manager>(m,HttpStatus.OK);
 	}
 	}

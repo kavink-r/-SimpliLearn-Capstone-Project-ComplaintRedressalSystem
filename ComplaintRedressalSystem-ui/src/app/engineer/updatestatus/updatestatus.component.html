@@ -1,0 +1,13 @@
+<div class="card mx-3 my-3 px-3 py-3">
+    <div class="row">
+        <div class="col"><h1 style="float: left;">Update Status</h1></div>
+        <div class="col"><button class="btn btn-danger" style="float: right;" (click)="closedialog()">X</button></div>
+    </div>
+    <label for="status">Select Status</label>
+    <select name="status" id="status" class="form-control" [(ngModel)]="tempstatus">
+        <option value="WIP">Work In Progress(WIP)</option>
+        <option value="ESCALATED">ESCALATED</option>
+        <option value="CLOSED">CLOSED</option>
+    </select>
+    <button class="btn btn-primary my-3" (click)="updatestatus()">Update</button>
+</div>

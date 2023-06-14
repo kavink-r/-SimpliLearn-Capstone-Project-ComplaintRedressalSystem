@@ -1,0 +1,38 @@
+<div class="px-3 py-3">
+    <table class="table table-outlined table-striped">
+        <thead class="table table-dark">
+            <tr>
+                <th>Complaint Id</th>
+                <th>Customer Name</th>
+                <th>Customer Address</th>
+                <th>Pincode</th>
+                <th>Customer Contact</th>
+                <th>Complaint Subject</th>
+                <th>Complaint Details</th>
+                <th>Feedback</th>
+                <th>Tickets</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let comp of complaints">
+                <td>{{comp.complaintId}}</td>
+                <td>{{comp.name}}</td>
+                <td>{{comp.address}}</td>
+                <td>{{comp.pin.pin}}</td>
+                <td>{{comp.contactNo}}</td>
+                <td>{{comp.subject}}</td>
+                <td>{{comp.details}}</td>
+                <td>{{comp.feedback?comp.feedback:"Not given"}}</td>
+                <td>
+                    <ul *ngFor="let tkt of comp.ticket" class="list-group list-group-horizontal-sm">
+                        <li class="list-group-item">{{tkt.ticketId}}</li>
+                        <li class="list-group-item"><b>{{tkt.status}}</b></li>
+                        <li class="list-group-item"><button class="btn btn-warning btn-sm" (click)="viewticket(tkt)"><i class="bi bi-eye-fill"></i></button></li>
+                    </ul>
+                </td>
+                <td>{{comp.createdAt | date:"dd-MMM-yy hh:mm"}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

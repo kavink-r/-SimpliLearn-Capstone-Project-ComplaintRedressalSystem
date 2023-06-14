@@ -1,3 +1,12 @@
-<div class="card" style="width:100% ;height: 100%;">
+<div class="card">
     <h1 >Admin Dashboard</h1>
+    <div class="row mx-3 my-4">
+    <button class="btn btn-primary mx-2" routerLink="viewall" style="width: 10%;">View All users</button>
+    <button class="btn btn-primary " style="width: 10%;" routerLink="allcomplaints">View All Complaints</button>
+    <button class="btn btn-primary mx-2" style="width: 10%;" routerLink="alltickets">View All Tickets</button>
+    <button class="btn btn-primary " style="width: 20%;" routerLink="pincodedetails">Pincode, Area manager and Engieers</button>
+</div>
+</div>
+<div class="card px-3 py-3">
+    <router-outlet></router-outlet>
 </div>

@@ -1,0 +1,28 @@
+<div class="card px-3 py-3 mx-3 my-3">
+    <div class="row">
+        <div class="col"><h1 style="float: left;">Assign Manager</h1></div>
+        <div class="col"><button style="float: right;" (click)="closedialog()" class="btn btn-warning">X</button></div>
+    </div>
+    <table class="table table-outlined">
+        <tbody>
+            <tr>
+                <th>TicketID</th>
+                <td>{{data.ticketId}}</td>
+            </tr>
+            <tr>
+                <th>Pincode</th>
+                <td>{{comp.pin.pin}}</td>
+            </tr>
+            <tr>
+                <th>Select Engineer</th>
+                <td>
+                    <select class="form-control" name="manager" id="manager" #egr>
+                        <option *ngFor="let egr of engineers" value={{egr.userid}}>{{egr.firstName+' '+egr.lastName}} </option>
+                        
+                    </select>
+                    <button class="btn btn-warning" (click)="assignEngineer(egr.value)">Assign</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

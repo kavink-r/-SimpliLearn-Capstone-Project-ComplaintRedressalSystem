@@ -1,0 +1,50 @@
+<div class="card mx-4 my-4 px-4 py-4">
+    <div>
+        <div style="display: inline;float: left;">
+            <h1>Raise complaint</h1>
+        </div>
+        <button class="btn btn-sm btn-danger" style="float: right;" (click)="closedialog()">X</button>
+    </div>
+
+    <form (ngSubmit)="createcomplaint()">
+        <div class="row">
+            <div class="col">
+                <label for="cusname">Enter your name</label>
+                <input type="text" id="cusname" name="cusname" class="form-control" [(ngModel)]="complaint.name" required>
+            </div>
+            <div class="col">
+                <label for="address">Enter your address</label>
+                <input type="text" id="address" name="address" class="form-control" [(ngModel)]="complaint.address" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="pin">Select Pin</label>
+                <select class="form-control" name="pin" id="pin" required [(ngModel)]="complaint.pin.pin" required>
+                    <option>Select Pin</option>
+                    <option *ngFor="let pin of pins" value="{{pin.pin}}">{{pin.pin}}</option>
+                </select>
+            </div>
+            <div class="col">
+                <label for="contact">Enter your contact No </label>
+                <input type="number" id="contact" name="contact" class="form-control" required [(ngModel)]="complaint.contactNo" required>
+            </div>
+        </div>
+        <br><br>
+        <div class="row">
+            <div class="col">
+                <label for="subject">Select Subject</label>
+                <select class="form-control" name="subject" id="subject" required [(ngModel)]="complaint.subject">
+                    <option>Select complaint subject</option>
+                    <option *ngFor="let sub of subjects" value="{{sub}}">{{sub}}</option>
+                </select>
+            </div>
+            <div class="col">
+                <label for="details">Enter complaint details</label>
+                <input type="text" id="details" name="details" class="form-control" [(ngModel)]="complaint.details" required>
+            </div>
+        </div>
+        <br><br>
+        <button class="btn btn-warning" type="submit">Submit</button>
+    </form>
+</div>

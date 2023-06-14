@@ -1,0 +1,53 @@
+<div class="px-3 py-3 mx-3 my-3">
+    <div class="pin" style="width: 30%;display: inline;float: left;">
+        <button class="btn btn-primary my-3" (click)="addpin()">Add Pin</button>
+    <table class="table table-outlined table-bordered">
+        <thead>
+            <tr>
+                <th >Available Pincodes</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let pin of pins">
+                <td>{{pin.pin}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="manager" style="width: 30%; float: right;">
+    
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th colspan="2">List of Managers</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let mgr of managers">
+            <td>{{mgr.pin.pin}}</td>
+            <td>{{mgr.firstName+' '+mgr.lastName}}</td>
+        </tr>
+    </tbody>
+</table>
+</div>
+<div class="engineer" style="width: 30%; display: inline-block;margin-left: 4rem;">
+    
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th colspan="2">List of Engineers</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let egr of engineers">
+                <td>{{egr.firstName+' '+egr.lastName}}</td>
+                <td><ul class="list-group">
+                    <li *ngFor="let pin of egr.locations" class="list-group-item">{{pin.pin}}</li>
+                    </ul>
+            </td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+</div>
