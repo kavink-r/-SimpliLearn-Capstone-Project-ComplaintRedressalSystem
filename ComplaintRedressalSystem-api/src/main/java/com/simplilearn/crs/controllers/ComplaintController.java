@@ -120,6 +120,7 @@ public class ComplaintController {
 		Map<String,Integer> res = new HashMap<>();
 		int status = pinservice.addPin(p);
 		res.put("status", status);
+		
 		return new ResponseEntity<Map<String,Integer>>(res,HttpStatus.OK);
 	}
 	@GetMapping("/managerforpin")

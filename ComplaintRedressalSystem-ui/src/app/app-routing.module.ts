@@ -20,7 +20,7 @@ import { OpenticketsComponent } from './engineer/opentickets/opentickets.compone
 
 const routes: Routes = [
   {path:'login',component:LoginComponent},
-  {path:'',component:LandingComponent/*,canActivate:[loginGuard]*/,children:[
+  {path:'',component:LandingComponent,canActivate:[loginGuard],children:[
     {path:'manager',component:ManagerComponent,children:[
     {path:'managerall', component:ManagerallticketsComponent},
     {path:'manageropen', component:ManageropenticketsComponent}
